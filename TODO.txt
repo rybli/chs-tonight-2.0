@@ -1,0 +1,11 @@
+Tonight Section
+    Display what is happening at each location
+        scrape website for event information
+
+This Week Section
+    Just a link for each venue
+    Don't list what is happening
+
+Contact Page
+
+About Page
