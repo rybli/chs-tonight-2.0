@@ -1,11 +1,27 @@
+TODO
+
 Tonight Section
-    Display what is happening at each location
-        scrape website for event information
+    Display what is happening at each location:
+        "Music Farm": "https://music-farm.com/events/?tribe_bar_rhp_venue=3902",
+        "Pour House": "https://charlestonpourhouse.com/",
+        "Royal American": "https://www.theroyalamerican.com/schedule",
+        "Sparrow": "https://www.facebook.com/pg/thesparrowparkcircle/events/",
+        "Theatre 99": "https://theatre99.com/schedule/action~posterboard/",
+        "Tin Roof": "https://tockify.com/api/ngevent?max=12&calname=tinroofschedule",
+        "Wind Jammer": "https://the-windjammer.com/events/",
+        "Woolfe Street": "https://woolfestreetplayhouse.com/shows/"
 
 This Week Section
     Just a link for each venue
     Don't list what is happening
 
-Contact Page
 
-About Page
+Get HTTPS working
+
+
+Complete:
+    Display Gaillard events. (Feb 27, 2020)
+    Display Home Team events. (Mar 2, 2020)
+    Display Music Hall events. (Mar 4, 2020)
+    Contact Page (Feb 10, 2020)
+    About Page (Feb 10, 2020)
