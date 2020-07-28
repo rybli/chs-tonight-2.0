@@ -91,7 +91,26 @@ def HomeTeamWA():
 HomeTeamWA()
 
 def MusicFarm():
-    pass
+    """
+
+    :return: [String] Out of a single string for either event name of 'No Events'
+    Have access to event time as well for future use.
+    """
+    def MusicFarm():
+        webpage = bs(open("MusicFarm.html", "r"), "html.parser")
+        eventInfo = webpage.find('div', {"class": "rhino-widget-list"})
+        for eventDate, eventName, eventTime in zip(eventInfo.findAll('div', {"class": "eventDateList"}),
+                                                   eventInfo.findAll('div', {"class": "col-12 px-0 eventTitleDiv"}),
+                                                   eventInfo.findAll('div', {
+                                                       "class": "d-block eventsColor eventDoorStartDate"})):
+            if eventDate.text.strip() == date.today().strftime("%b %d"):
+                MFeventName = eventName.text
+                return MFeventName
+            else:
+                MFeventName = "No Events"
+                return MFeventName
+
+MusicFarm()
 
 def MusicHall():
     webpage = bs(siteScrape(venues.get("Music Hall")), "html.parser")

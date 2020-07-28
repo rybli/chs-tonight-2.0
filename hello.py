@@ -9,6 +9,7 @@ GaillardEvent = contentscrape.Gaillard()
 HTDTEvent = contentscrape.HomeTeamDowntown()
 HTWAEvent = contentscrape.HomeTeamWA()
 MHEvent = contentscrape.MusicHall()
+MFEvent = contentscrape.MusicFarm()
 
 @app.route('/', methods=['GET'])
 def hello_world():

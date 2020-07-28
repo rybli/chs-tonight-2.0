@@ -1,5 +1,10 @@
 TODO
 
+Try to condense event and date info using:
+    for a,b in zip():
+        print(a,b)
+    See MusicFarm function for example
+
 Tonight Section
     Display what is happening at each location:
         "Music Farm": "https://music-farm.com/events/?tribe_bar_rhp_venue=3902",
