@@ -30,3 +30,4 @@ Complete:
     Display Music Hall events. (Mar 4, 2020)
     Contact Page (Feb 10, 2020)
     About Page (Feb 10, 2020)
+    Display Music Farm events. (Jul 27, 2020)

@@ -14,7 +14,7 @@ MFEvent = contentscrape.MusicFarm()
 @app.route('/', methods=['GET'])
 def hello_world():
     return render_template('home.html', GaillardEventName=GaillardEvent, HomeTeamDTEventName=HTDTEvent,
-                           HomeTeamWAEventName=HTWAEvent, MusicHallEventName=MHEvent)
+                           HomeTeamWAEventName=HTWAEvent, MusicHallEventName=MHEvent, MusicFarmEventName=MFEvent)
 
 
 @app.route('/about', methods=['GET'])
