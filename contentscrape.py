@@ -50,7 +50,7 @@ def Gaillard():
             return GaillardEventName
 
 
-Gaillard()
+# Gaillard()
 
 def HomeTeamDowntown():
     """
@@ -69,7 +69,7 @@ def HomeTeamDowntown():
             return HTDTeventName
 
 
-HomeTeamDowntown()
+# HomeTeamDowntown()
 
 def HomeTeamWA():
     """
@@ -88,7 +88,7 @@ def HomeTeamWA():
             HTWAeventName = "No Events"
             return HTWAeventName
 
-HomeTeamWA()
+# HomeTeamWA()
 
 def MusicFarm():
     """
@@ -97,7 +97,7 @@ def MusicFarm():
     Have access to event time as well for future use.
     """
     def MusicFarm():
-        webpage = bs(open("MusicFarm.html", "r"), "html.parser")
+        webpage = bs(siteScrape(venues.get("Music Farm")), "html.parser")
         eventInfo = webpage.find('div', {"class": "rhino-widget-list"})
         for eventDate, eventName, eventTime in zip(eventInfo.findAll('div', {"class": "eventDateList"}),
                                                    eventInfo.findAll('div', {"class": "col-12 px-0 eventTitleDiv"}),
@@ -110,7 +110,7 @@ def MusicFarm():
                 MFeventName = "No Events"
                 return MFeventName
 
-MusicFarm()
+# MusicFarm()
 
 def MusicHall():
     webpage = bs(siteScrape(venues.get("Music Hall")), "html.parser")
@@ -121,10 +121,21 @@ def MusicHall():
             eventName = event.find('h2').text
             return eventName
 
-MusicHall()
+# MusicHall()
 
+# TODO Need to get start time of event
+# TODO Need to get event sub title
 def PourHouse():
-    pass
+    webpage = bs(siteScrape(venues.get("Pour House")), "html.parser")
+    eventInfo = webpage.find('main', {"class": "site-main"})
+    for event in eventInfo.findAll('header', {"class": "show-header"}):
+        # print(event.find('table', {"class": "show-details"}))
+        event_date = re.sub(r'(?<=[0-9])(?:st|nd|rd|th)', '', event.find('p', {"class": "show-day"}).text.replace(',', '')) # Remove ordinal indicators and strip commas for date comparison
+        if event_date == date.today().strftime("%A %B %d %Y"): # Compare to formatted current date.
+            eventName = event.find('h3').text # Return the name of event
+            return eventName
+
+PourHouse()
 
 def RoyalAmerican():
     pass

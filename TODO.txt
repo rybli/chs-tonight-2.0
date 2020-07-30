@@ -1,5 +1,12 @@
 TODO
 
+Need to properly comment functions to keep code readable to others.
+
+Create Dynamic HTML:
+    If no events, do not list venue
+
+Create page for venues being tracked.
+
 Try to condense event and date info using:
     for a,b in zip():
         print(a,b)
@@ -7,8 +14,6 @@ Try to condense event and date info using:
 
 Tonight Section
     Display what is happening at each location:
-        "Music Farm": "https://music-farm.com/events/?tribe_bar_rhp_venue=3902",
-        "Pour House": "https://charlestonpourhouse.com/",
         "Royal American": "https://www.theroyalamerican.com/schedule",
         "Sparrow": "https://www.facebook.com/pg/thesparrowparkcircle/events/",
         "Theatre 99": "https://theatre99.com/schedule/action~posterboard/",
@@ -20,9 +25,7 @@ This Week Section
     Just a link for each venue
     Don't list what is happening
 
-
 Get HTTPS working
-
 
 Complete:
     Display Gaillard events. (Feb 27, 2020)
@@ -31,3 +34,4 @@ Complete:
     Contact Page (Feb 10, 2020)
     About Page (Feb 10, 2020)
     Display Music Farm events. (Jul 27, 2020)
+    Display Pour House events. (Jul 29, 2020)
