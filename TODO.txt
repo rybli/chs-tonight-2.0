@@ -1,9 +1,22 @@
 TODO
 
+For XPATH
+https://towardsdatascience.com/how-to-use-python-and-xpath-to-scrape-websites-99eaed73f1dd
+
 Need to properly comment functions to keep code readable to others.
 
 Create Dynamic HTML:
     If no events, do not list venue
+    Create key:value pair for each venue and event. If no event, do not render html.
+    {% for key, value in result.items() %}
+            <tr>
+               <th> {{ key }} </th>
+               <td> {{ value }} </td>
+            </tr>
+         {% endfor %}
+
+    Dictionary of Lists {x: [1,2,3]}
+    Need function that creates dictionary with every venue as key, set value to the return of each venue function in list.
 
 Create page for venues being tracked.
 
