@@ -1,13 +1,7 @@
-from bs4 import BeautifulSoup as bs
-import requests
 from datetime import date
-import re
-
-# XPATH Libraries
 import requests
-from urllib.request import urlopen
-from lxml import etree
 from lxml import html
+import re
 
 
 #  List of URLs for venues
@@ -27,9 +21,6 @@ venues = {
 }
 
 
-
-
-
 # Pull initial web page and return for use in site specific functions.
 def siteScrape(url):
     """
@@ -39,8 +30,8 @@ def siteScrape(url):
     """
     headers = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:79.0) Gecko/20100101 Firefox/79.0"}
     req = requests.get(url, headers=headers)
-    tree = html.fromstring(req.content.decode(encoding="utf-8", errors="ignore"))
-    return tree # Return tree for xpath parsing.
+    tree = html.fromstring(req.content)
+    return tree  # Return tree for xpath parsing.
 
 
 def Gaillard():
@@ -53,55 +44,58 @@ def Gaillard():
     month = gaillard.xpath('//span[@class="performance-item__date-month"]//text()')
     day = gaillard.xpath('//span[@class="performance-item__date-day"]//text()')
     event = gaillard.xpath('//div[@class="performance-item__title"]//text()')
+    time = gaillard.xpath('//div[@class="text-accent performance-item__time"]//text()')
 
-    for event_month, event_day, event_name in zip(month, day, event):
+    for event_month, event_day, event_name, event_time in zip(month, day, event, time):
         print(event_month, event_day, event_name)
         if (event_month, event_day) == date.today().strftime("%b %d").replace(" 0", " "): # compare event date to today's date formatted
             return event_name
 
 
-Gaillard()
+# Gaillard()
 
 
 # TODO No events happening at the moment (Aug 2020) So no data to refactor this function with XPATH.
-# def HomeTeamDowntown():
-#     """
-#
-#     :return: [String] Output of a single string for either event name or 'No Events'
-#     """
-#     webpage = bs(siteScrape(venues.get("Home Team Downtown")), 'html.parser')
-#     eventInfo = webpage.find('div', {"class": "timeline wow fadeIn"})
-#     for event in eventInfo.findAll('div', {"class": "row event location-downtown-charleston"}): # Finding all DT events.
-#         eventDate = (event.find('div', {"class": "month"}).text, event.find('div', {"class": "year"}).text) # Year is actually the day of month.
-#         if eventDate == date.today().strftime("%b  %d").lstrip("0").replace(" 0", " "): # Format today function to match site date for comparison.
-#             HTDTeventName = event.attrs.get("data-name")
-#             return HTDTeventName
-#         else:
-#             HTDTeventName = "No Events"
-#             return HTDTeventName
-#
-#
+def HomeTeamDowntown():
+    """
+
+    :return: [String] Output of a single string for either event name or 'No Events'
+    """
+    webpage = bs(siteScrape(venues.get("Home Team Downtown")), 'html.parser')
+    eventInfo = webpage.find('div', {"class": "timeline wow fadeIn"})
+    for event in eventInfo.findAll('div', {"class": "row event location-downtown-charleston"}): # Finding all DT events.
+        eventDate = (event.find('div', {"class": "month"}).text, event.find('div', {"class": "year"}).text) # Year is actually the day of month.
+        if eventDate == date.today().strftime("%b  %d").lstrip("0").replace(" 0", " "): # Format today function to match site date for comparison.
+            HTDTeventName = event.attrs.get("data-name")
+            return HTDTeventName
+        else:
+            HTDTeventName = "No Events"
+            return HTDTeventName
+
+
 # HomeTeamDowntown()
 
+
 # TODO No events happening at the moment (Aug 2020) So no data to refactor this function with XPATH.
-# def HomeTeamWA():
-#     """
-#
-#     :return: [String] Output of a single string for either event name or 'No Events'
-#     """
-#     webpage = bs(siteScrape(venues.get("Home Team West Ashley")), 'html.parser')
-#     eventInfo = webpage.find('div', {"class": "timeline wow fadeIn"})
-#     for event in eventInfo.findAll('div', {"class": "row event location-west-ashley"}): # Finding all WA events.
-#         eventDate = (event.find('div', {"class": "month"}).text,
-#                      event.find('div', {"class": "year"}).text)  # Year is actually the day of month.
-#         if eventDate == date.today().strftime("%b  %d").lstrip("0").replace(" 0", " "):  # Format today function to match site date for comparison.
-#             HTWAeventName = event.attrs.get("data-name")
-#             return HTWAeventName
-#         else:
-#             HTWAeventName = "No Events"
-#             return HTWAeventName
-#
+def HomeTeamWA():
+    """
+
+    :return: [String] Output of a single string for either event name or 'No Events'
+    """
+    webpage = bs(siteScrape(venues.get("Home Team West Ashley")), 'html.parser')
+    eventInfo = webpage.find('div', {"class": "timeline wow fadeIn"})
+    for event in eventInfo.findAll('div', {"class": "row event location-west-ashley"}): # Finding all WA events.
+        eventDate = (event.find('div', {"class": "month"}).text,
+                     event.find('div', {"class": "year"}).text)  # Year is actually the day of month.
+        if eventDate == date.today().strftime("%b  %d").lstrip("0").replace(" 0", " "):  # Format today function to match site date for comparison.
+            HTWAeventName = event.attrs.get("data-name")
+            return HTWAeventName
+        else:
+            HTWAeventName = "No Events"
+            return HTWAeventName
+
 # HomeTeamWA()
+
 
 def MusicFarm():
     """
@@ -128,46 +122,87 @@ def MusicFarm():
 #                 return MFeventName
 #
 # MusicFarm()
-#
-# def MusicHall():
-#     webpage = bs(siteScrape(venues.get("Music Hall")), "html.parser")
-#     eventInfo = webpage.find('div', {"class": "tribe-events-loop"})
-#     for event in eventInfo.findAll('article', {"class": "cmh-event-wrapper"}):
-#         eventDate = re.findall('\d+', event.find('time', {"class": "dates"}).text.replace('.', ' '))
-#         if (eventDate[0], eventDate[1]) == date.today().strftime("%m %d").lstrip("0").replace(" 0", " "):
-#             eventName = event.find('h2').text
-#             return eventName
-#
+
+
+def MusicHall():
+    """
+
+    :return: [String] Event name
+    """
+    musichall = siteScrape(venues.get("Music Hall"))
+    edate = musichall.xpath('//time[@class="dates"]')
+    event = musichall.xpath('//section[@class="cmh-event-content"]/a/h2//text()')
+    time = musichall.xpath('//section[@class="cmh-event-content"]/p//text()')
+
+    for event_date, event_name, event_time in zip(edate, event, time):
+        # print(event_name, event_name, event_time)
+        # Compare scraped date (e.g. SUN8.16) to today's date.
+        # Format today to match scraped date. Windows localized with # to get rid of zero padding.
+        if (event_date.text_content()) == date.today().strftime("%a%#m.%#d").upper():
+            return event_name
+
 # MusicHall()
 
-# # TODO Need to get start time of event
-# # TODO Need to get event sub title
-# def PourHouse():
-#     webpage = bs(siteScrape(venues.get("Pour House")), "html.parser")
-#     eventInfo = webpage.find('main', {"class": "site-main"})
-#     for event in eventInfo.findAll('header', {"class": "show-header"}):
-#         # print(event.find('table', {"class": "show-details"}))
-#         event_date = re.sub(r'(?<=[0-9])(?:st|nd|rd|th)', '', event.find('p', {"class": "show-day"}).text.replace(',', '')) # Remove ordinal indicators and strip commas for date comparison
-#         if event_date == date.today().strftime("%A %B %d %Y"): # Compare to formatted current date.
-#             eventName = event.find('h3').text # Return the name of event
-#             return eventName
-#
+
+# TODO Need to get start time of event
+# TODO Need to get event sub title
+def PourHouse():
+    pourhouse = siteScrape(venues.get("Pour House"))
+    date = pourhouse.xpath('//p[@class="show-day"]//text()')
+    event = pourhouse.xpath('//header[@class="show-header"]//h3[1]//text()')
+    # Includes cover, doors time, show time, and some genre.
+    # cover = pourhouse.xpath('//table[@class="show-details"]//tr[1]//th//following-sibling::td//text()')
+    for item in event:
+        print(item)
+
+    print(event)
+
 # PourHouse()
 
-# def RoyalAmerican():
-#     pass
 
-# def Sparrow():
-#     pass
+# TODO No events happening at the moment (Aug 2020) So no data to refactor this function with XPATH.
+def RoyalAmerican():
+    pass
 
-# def Theatre99():
-#     pass
 
-# def TinRoof():
-#     pass
+# TODO No events happening at the moment (Aug 2020) So no data to refactor this function with XPATH.
+def Sparrow():
+    pass
 
-# def WindJammer():
-#     pass
 
-# def WoolfeStreet():
-#     pass
+def Theatre99():
+    """
+
+    :return: [String] Event name
+    """
+    theatre99 = siteScrape(venues.get("Theatre 99"))
+    date_month = theatre99.xpath('//div[@class="ai1ec-month"]//text()')
+    date_day = theatre99.xpath('//div[@class="ai1ec-day"]//text()')
+    date_weekday = theatre99.xpath('//div[@class="ai1ec-weekday"]//text()')
+    event = theatre99.xpath('//div[@class="ai1ec-event-title"]/div/a//text()')
+    time = theatre99.xpath('//div[@class="ai1ec-posterboard-time"]//text()')
+
+    # Create combined date for comparison.
+    date = []
+    for month, day, weekday in zip(date_month, date_day, date_weekday):
+        combined_date = month + day + weekday
+        date.append(combined_date)
+
+    for d, e, t in zip(date, event, time):
+        print(d)
+        if d == date.today().strftime("%b%#d%a"):
+            return e
+
+
+Theatre99()
+
+def TinRoof():
+    pass
+
+
+def WindJammer():
+    pass
+
+
+def WoolfeStreet():
+    pass

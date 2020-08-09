@@ -2,6 +2,7 @@ TODO
 
 For XPATH
 https://towardsdatascience.com/how-to-use-python-and-xpath-to-scrape-websites-99eaed73f1dd
+    **UPDATE - Might have to switch to SCRAPY https://docs.scrapy.org/en/latest/intro/tutorial.html to get functionality I need for certain site setups.
 
 Need to properly comment functions to keep code readable to others.
 
@@ -27,6 +28,12 @@ Try to condense event and date info using:
 
 Tonight Section
     Display what is happening at each location:
+        "Gaillard": "https://gaillardcenter.org/buy-tickets",
+        "Home Team Downtown": "https://hometeambbq.com/happenings/",
+        "Home Team West Ashley": "https://hometeambbq.com/happenings/",
+        "Music Farm": "https://music-farm.com/events/?tribe_bar_rhp_venue=3902",
+        "Music Hall": "https://www.charlestonmusichall.com/shows/",
+        "Pour House": "https://charlestonpourhouse.com/",
         "Royal American": "https://www.theroyalamerican.com/schedule",
         "Sparrow": "https://www.facebook.com/pg/thesparrowparkcircle/events/",
         "Theatre 99": "https://theatre99.com/schedule/action~posterboard/",
@@ -41,10 +48,10 @@ This Week Section
 Get HTTPS working
 
 Complete:
-    Display Gaillard events. (Feb 27, 2020)
-    Display Home Team events. (Mar 2, 2020)
-    Display Music Hall events. (Mar 4, 2020)
     Contact Page (Feb 10, 2020)
     About Page (Feb 10, 2020)
-    Display Music Farm events. (Jul 27, 2020)
-    Display Pour House events. (Jul 29, 2020)
+    Rewrote Gaillard (Aug 1, 2020)
+    Rewrote Music Hall (Aug 8, 2020)
+    Theatre 99 (Aug 8, 2020)
+
+
