@@ -11,12 +11,15 @@ HTWAEvent = contentscrape.HomeTeamWA()
 MHEvent = contentscrape.MusicHall()
 MFEvent = contentscrape.MusicFarm()
 PHEvent = contentscrape.PourHouse()
+TREvent = contentscrape.TinRoof()
+WSEvent = contentscrape.WoolfeStreet()
+
 
 @app.route('/', methods=['GET'])
 def hello_world():
     return render_template('home.html', GaillardEventName=GaillardEvent, HomeTeamDTEventName=HTDTEvent,
                            HomeTeamWAEventName=HTWAEvent, MusicHallEventName=MHEvent, MusicFarmEventName=MFEvent,
-                           PourHouseEventName=PHEvent)
+                           PourHouseEventName=PHEvent, TinRoofEventName=TREvent, WoolfeStreetEventName=WSEvent)
 
 
 @app.route('/about', methods=['GET'])

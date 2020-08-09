@@ -1,9 +1,5 @@
 TODO
 
-For XPATH
-https://towardsdatascience.com/how-to-use-python-and-xpath-to-scrape-websites-99eaed73f1dd
-    **UPDATE - Might have to switch to SCRAPY https://docs.scrapy.org/en/latest/intro/tutorial.html to get functionality I need for certain site setups.
-
 Need to properly comment functions to keep code readable to others.
 
 Create Dynamic HTML:
@@ -20,11 +16,6 @@ Create Dynamic HTML:
     Need function that creates dictionary with every venue as key, set value to the return of each venue function in list.
 
 Create page for venues being tracked.
-
-Try to condense event and date info using:
-    for a,b in zip():
-        print(a,b)
-    See MusicFarm function for example
 
 Tonight Section
     Display what is happening at each location:
@@ -53,5 +44,8 @@ Complete:
     Rewrote Gaillard (Aug 1, 2020)
     Rewrote Music Hall (Aug 8, 2020)
     Theatre 99 (Aug 8, 2020)
+    Tin Roof (Aug 9, 2020)
+    Wind Jammer (Aug 9, 2020)
+    Initial Woolfe Street functionality (Aug 9, 2020)
 
 
