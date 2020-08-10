@@ -2,19 +2,6 @@ TODO
 
 Need to properly comment functions to keep code readable to others.
 
-Create Dynamic HTML:
-    If no events, do not list venue
-    Create key:value pair for each venue and event. If no event, do not render html.
-    {% for key, value in result.items() %}
-            <tr>
-               <th> {{ key }} </th>
-               <td> {{ value }} </td>
-            </tr>
-         {% endfor %}
-
-    Dictionary of Lists {x: [1,2,3]}
-    Need function that creates dictionary with every venue as key, set value to the return of each venue function in list.
-
 Create page for venues being tracked.
 
 Tonight Section
@@ -48,5 +35,6 @@ Complete:
     Wind Jammer (Aug 9, 2020)
     Initial Woolfe Street functionality (Aug 9, 2020)
     Pour House (Aug 10, 2020)
+    Created Dynamic HTML to only show venues with events (Aug 10, 2020)
 
 

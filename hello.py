@@ -11,7 +11,7 @@ events = {
     "Gaillard": contentscrape.Gaillard(),
     "Home Team Downtown": contentscrape.HomeTeamDowntown(),
     "Home Team West Ashley": contentscrape.HomeTeamWA(),
-    "Music Farm": contentscrape.MusicFarm(),
+    "Music Farm Charleston": contentscrape.MusicFarm(),
     "Music Hall": contentscrape.MusicHall(),
     "Pour House": contentscrape.PourHouse(),
     "Royal American": contentscrape.RoyalAmerican(),
@@ -21,6 +21,7 @@ events = {
     "Wind Jammer": contentscrape.WindJammer(),
     "Woolfe Street": contentscrape.WoolfeStreet()
 }
+
 
 date_today = date.today().strftime("%A, %B %#d, %Y")
 
