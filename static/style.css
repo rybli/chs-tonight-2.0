@@ -1,6 +1,9 @@
 html {
   font-family: 'Quicksand', monospace;
   font-size: 14px;
+  background: url("https://www.wallpapersdsc.net/wp-content/uploads/2016/09/Charleston-Wallpaper.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 body {
   color: #000;
@@ -45,11 +48,11 @@ nav a:hover {
   border:1px dashed black;
 }
 .venueName {
-  background-color:#FFF;
+  /*background-color:#FFF;*/
   color:#000;
-  width:100%;
-  text-decoration: underline;
-  letter-spacing: .15em;
+  /*text-decoration: underline;*/
+  /*letter-spacing: .15em;*/
+  font-size: large;
 }
 .showItem {
 
@@ -72,4 +75,7 @@ nav a:hover {
 }
 #date {
   text-align: center;
+}
+th {
+  text-align: left;
 }

@@ -49,16 +49,16 @@ def Gaillard():
     time = gaillard.xpath('//div[@class="text-accent performance-item__time"]//text()')
 
     for event_month, event_day, event_name, event_time in zip(month, day, event, time):
-        print(event_month, event_day, event_name)
         if (event_month, event_day) == date.today().strftime("%b %d").replace(" 0", " "): # compare event date to today's date formatted
             return event_name
 
 
-# Gaillard()
+Gaillard()
 
 
 # TODO No events happening at the moment (Aug 2020) So no data to refactor this function with XPATH.
-# def HomeTeamDowntown():
+def HomeTeamDowntown():
+    pass
 #     """
 #
 #     :return: [String] Output of a single string for either event name or 'No Events'
@@ -79,7 +79,8 @@ def Gaillard():
 
 
 # TODO No events happening at the moment (Aug 2020) So no data to refactor this function with XPATH.
-# def HomeTeamWA():
+def HomeTeamWA():
+    pass
 #     """
 #
 #     :return: [String] Output of a single string for either event name or 'No Events'
@@ -96,7 +97,7 @@ def Gaillard():
 #             HTWAeventName = "No Events"
 #             return HTWAeventName
 
-# HomeTeamWA()
+HomeTeamWA()
 
 
 def MusicFarm():
@@ -134,7 +135,8 @@ def MusicHall():
         if (event_date.text_content()) == date.today().strftime("%a%#m.%#d").upper():
             return event_name
 
-# MusicHall()
+
+MusicHall()
 
 
 # TODO Need to get start time of event
@@ -163,11 +165,15 @@ def RoyalAmerican():
     pass
 
 
+RoyalAmerican()
+
+
 # TODO No events happening at the moment (Aug 2020) So no data to refactor this function with XPATH.
 def Sparrow():
     pass
 
-# Sparrow()
+
+Sparrow()
 
 
 def Theatre99():
@@ -188,13 +194,12 @@ def Theatre99():
         combined_date = month + day + weekday
         dates.append(combined_date)
 
-    for d, e, t in zip(date, event, time):
-        print(d)
+    for d, e, t in zip(dates, event, time):
         if d == date.today().strftime("%b%#d%a"):
             return e
 
 
-# Theatre99()
+Theatre99()
 
 
 def TinRoof():
@@ -213,7 +218,7 @@ def TinRoof():
                    datetime.utcfromtimestamp(event['when']['start']['millis']/1000).strftime('%#I:%M %p')
 
 
-# TinRoof()
+TinRoof()
 
 
 def WindJammer():
@@ -228,7 +233,7 @@ def WindJammer():
             return e + ' - ' + t
 
 
-# WindJammer()
+WindJammer()
 
 
 # TODO No specific dates for any events right now. Can't create logic for single events.
@@ -237,11 +242,9 @@ def WoolfeStreet():
     woolfestreet = siteScrape(venues.get("Woolfe Street"))
     events = woolfestreet.xpath('//div[@class="top"]/h2/a//text()')
     date = woolfestreet.xpath('//div[@class="lefty"]/h5//text()')
-    
-    # print(events)
-    
+
     for a, b in zip(events, date):
         return a + " - " + b
 
 
-# WoolfeStreet()
+WoolfeStreet()
