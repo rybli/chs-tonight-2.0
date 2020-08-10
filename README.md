@@ -32,17 +32,17 @@ flask run
 ## Venues
 A current list of venues that are being tracked for events:
 
-- [Gaillard]('https://gaillardcenter.org')
-- [Home Team Downtown]('https://hometeambbq.com')
-- [Home Team West Ashley]('https://hometeambbq.com')
-- [Music Farm Charleston]('https://music-farm.com')
-- [Music Hall]('https://www.charlestonmusichall.com')
-- [Pour House]('https://charlestonpourhouse.com')
-- [Royal American]('https://www.theroyalamerican.com')
-- [Sparrow]('https://www.facebook.com')
-- [Theatre 99]('https://theatre99.com')
-- [Tin Roof]('http://charlestontinroof.com/')
-- [Wind Jammer]('https://the-windjammer.com')
-- [Woolfe Street]('https://woolfestreetplayhouse.com')
+- [Gaillard](https://gaillardcenter.org)
+- [Home Team Downtown](https://hometeambbq.com)
+- [Home Team West Ashley](https://hometeambbq.com)
+- [Music Farm Charleston](https://music-farm.com)
+- [Music Hall](https://www.charlestonmusichall.com)
+- [Pour House](https://charlestonpourhouse.com)
+- [Royal American](https://www.theroyalamerican.com)
+- [Sparrow](https://www.facebook.com)
+- [Theatre 99](https://theatre99.com)
+- [Tin Roof](http://charlestontinroof.com)
+- [Wind Jammer](https://the-windjammer.com)
+- [Woolfe Street](https://woolfestreetplayhouse.com)
 
 If you have any suggestions/requests, feel free to message me.
