@@ -102,28 +102,20 @@ def Gaillard():
 def MusicFarm():
     """
 
-    :return: [String] Out of a single string for either event name of 'No Events'
-    Have access to event time as well for future use.
+    :return: [String] Event name and time (formatted)
     """
-    # date = siteScrape(venues.get("Music Farm")).xpath('//div[@class="mb-0 eventMonth fontMontserratBold singleEventDate font-weight-bold text-uppercase font0by875"]//text()')
-    # event =
-    # time = site
-    # print(event_date)
-#     def MusicFarm():
-#         webpage = bs(siteScrape(venues.get("Music Farm")), "html.parser")
-#         eventInfo = webpage.find('div', {"class": "rhino-widget-list"})
-#         for eventDate, eventName, eventTime in zip(eventInfo.findAll('div', {"class": "eventDateList"}),
-#                                                    eventInfo.findAll('div', {"class": "col-12 px-0 eventTitleDiv"}),
-#                                                    eventInfo.findAll('div', {
-#                                                        "class": "d-block eventsColor eventDoorStartDate"})):
-#             if eventDate.text.strip() == date.today().strftime("%b %d"):
-#                 MFeventName = eventName.text
-#                 return MFeventName
-#             else:
-#                 MFeventName = "No Events"
-#                 return MFeventName
-#
-# MusicFarm()
+    musicfarm = siteScrape(venues.get("Music Farm"))
+    dates = musicfarm.xpath('//div[@class="eventDateList"]/div//text()')
+    events = musicfarm.xpath('//a[@class="url"]/h2//text()')
+    times = musicfarm.xpath('//div[@class="d-block eventsColor eventDoorStartDate"]/span//text()')
+
+    for d, e, t in zip(dates, events, times):
+        # Compare event date with today
+        if d.strip() == date.today().strftime("%b %m"):
+            return e + ' - ' + t  # Return formatted strings of event name and event times
+
+
+MusicFarm()
 
 
 def MusicHall():
@@ -149,16 +141,21 @@ def MusicHall():
 # TODO Need to get event sub title
 def PourHouse():
     pourhouse = siteScrape(venues.get("Pour House"))
-    date = pourhouse.xpath('//p[@class="show-day"]//text()')
-    event = pourhouse.xpath('//header[@class="show-header"]//h3[1]//text()')
-    # Includes cover, doors time, show time, and some genre.
-    # cover = pourhouse.xpath('//table[@class="show-details"]//tr[1]//th//following-sibling::td//text()')
-    for item in event:
-        print(item)
+    dates = pourhouse.xpath('//p[@class="show-day"]//text()')
+    # TODO Issue with <br> tags creating multiple events
+    events = pourhouse.xpath('//header[@class="show-header"]/h3')
+    door_times = pourhouse.xpath('//table[@class="show-details"]//th[text() = "Doors:"]//following-sibling::td//text()')
+    show_times = pourhouse.xpath('//table[@class="show-details"]//th[text() = "Show:"]//following-sibling::td//text()')
+    # TODO Some shows do no have a cover listed
+    # cover_cost = pourhouse.xpath('//table[@class="show-details"]//th[text() = "Cover:"]//following-sibling::td')
 
-    print(event)
+    for d, e, dt, st in zip(dates, events, door_times, show_times):
+        # Remove ordinal indicators and compare to today's date formatted.
+        if re.sub("(?<=[0-9])(?:st|nd|rd|th)", "", d) == date.today().strftime("%A, %B %#d, %Y"):
+            return e.text_content() + ' - ' + 'Doors: ' + dt + ' Show: ' + st
 
-# PourHouse()
+
+PourHouse()
 
 
 # TODO No events happening at the moment (Aug 2020) So no data to refactor this function with XPATH.
@@ -186,10 +183,10 @@ def Theatre99():
     time = theatre99.xpath('//div[@class="ai1ec-posterboard-time"]//text()')
 
     # Create combined date for comparison.
-    date = []
+    dates = []
     for month, day, weekday in zip(date_month, date_day, date_weekday):
         combined_date = month + day + weekday
-        date.append(combined_date)
+        dates.append(combined_date)
 
     for d, e, t in zip(date, event, time):
         print(d)
@@ -231,7 +228,7 @@ def WindJammer():
             return e + ' - ' + t
 
 
-WindJammer()
+# WindJammer()
 
 
 # TODO No specific dates for any events right now. Can't create logic for single events.
