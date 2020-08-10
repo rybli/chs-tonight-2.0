@@ -6,13 +6,13 @@ This project is more of a learning experience than anything else. There are most
 this information.
 
 
-##Setup
+## Setup
 
-###Requirements
+### Requirements
 If you wish to run your own instance of this site remember to install all requirements with the following command:
 
 `pip install -r requirements.txt`
-###Flask Setup
+### Flask Setup
 In order to run the flask instance run the following commands:
 
 Linux Environment:
@@ -29,7 +29,7 @@ flask run
 ```
 
 
-##Venues
+## Venues
 A current list of venues that are being tracked for events:
 
 - [Gaillard]('https://gaillardcenter.org')
