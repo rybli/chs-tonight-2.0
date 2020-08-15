@@ -1,25 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" href="static/favicon.ico">
     <meta charset="UTF-8">
-    <title>chs-tonight 2.0 - Home</title>
+    <title>CHS Happenings - Home</title>
     <link rel="stylesheet" href="/static/style.css" type="text/css">
-    <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
 </head>
 <body>
+    <div class="transparent">
+        <h1 id="title">Charleston Happenings</h1>
+    <h2 id="subtitle">See what's happening in Charleston tonight!</h2>
 
-    <h1>chs-tonight 2.0</h1>
+    <hr>
 
     <nav>
-        <a href="about">about</a>
-        <a href="contact">contact</a>
+        <ul class="horizontal">
+            <li>
+                <a href="/">home</a>
+            </li>
+            <li>
+                <a href="about">about</a>
+            </li>
+            <li>
+                <a href="contact">contact</a>
+            </li>
+
+
+        </ul>
     </nav>
 
     <hr>
 
-    <h2>See what's happening in Charleston tonight!</h2>
+
 
     <h1>Tonight <br> {{ date_today }}</h1>
+    <hr>
 
     <!--For each venue, if event happening create an HTML entry-->
     {% for key, value in results.items() %}
@@ -31,6 +47,19 @@
         {% endif %}
     {% endfor %}
 
-<!--    <h1>This Week</h1>-->
+    <h1>This Week</h1>
+
+<!--This will be for what is happening this week.-->
+    <!--For each venue, if event happening create an HTML entry-->
+<!--    {% for key, value in results.items() %}-->
+<!--        {% if value != None %}-->
+<!--            <div class="venueName">-->
+<!--                <b>{{ key }}</b> - {{ value }}-->
+<!--                <hr>-->
+<!--            </div>-->
+<!--        {% endif %}-->
+<!--    {% endfor %}-->
+    </div>
+
 </body>
 </html>

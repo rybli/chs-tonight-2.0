@@ -4,24 +4,12 @@ Need to properly comment functions to keep code readable to others.
 
 Create page for venues being tracked.
 
-Tonight Section
-    Display what is happening at each location:
-        "Gaillard": "https://gaillardcenter.org/buy-tickets",
-        "Home Team Downtown": "https://hometeambbq.com/happenings/",
-        "Home Team West Ashley": "https://hometeambbq.com/happenings/",
-        "Music Farm": "https://music-farm.com/events/?tribe_bar_rhp_venue=3902",
-        "Music Hall": "https://www.charlestonmusichall.com/shows/",
-        "Pour House": "https://charlestonpourhouse.com/",
-        "Royal American": "https://www.theroyalamerican.com/schedule",
-        "Sparrow": "https://www.facebook.com/pg/thesparrowparkcircle/events/",
-        "Theatre 99": "https://theatre99.com/schedule/action~posterboard/",
-        "Tin Roof": "https://tockify.com/api/ngevent?max=12&calname=tinroofschedule",
-        "Wind Jammer": "https://the-windjammer.com/events/",
-        "Woolfe Street": "https://woolfestreetplayhouse.com/shows/"
-
 This Week Section
-    Just a link for each venue
-    Don't list what is happening
+    List all events that are happening within the span of Monday - Sunday
+
+Refactor each function to return a list of events.
+    Today Events = []
+    Week Events = []
 
 Get HTTPS working
 

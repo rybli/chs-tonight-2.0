@@ -1,8 +1,6 @@
-from datetime import date
-from datetime import datetime
+from datetime import datetime, timedelta, date
 import requests
 from lxml import html
-import json
 import re
 
 
@@ -11,7 +9,7 @@ venues = {
     "Gaillard": "https://gaillardcenter.org/buy-tickets",
     "Home Team Downtown": "https://hometeambbq.com/happenings/",
     "Home Team West Ashley": "https://hometeambbq.com/happenings/",
-    "Music Farm": "https://music-farm.com/events/?tribe_bar_rhp_venue=3902",
+    "Music Farm Charleston": "https://music-farm.com/events/?tribe_bar_rhp_venue=3902",
     "Music Hall": "https://www.charlestonmusichall.com/shows/",
     "Pour House": "https://charlestonpourhouse.com/",
     "Royal American": "https://www.theroyalamerican.com/schedule",
@@ -49,7 +47,8 @@ def Gaillard():
     time = gaillard.xpath('//div[@class="text-accent performance-item__time"]//text()')
 
     for event_month, event_day, event_name, event_time in zip(month, day, event, time):
-        if (event_month, event_day) == date.today().strftime("%b %d").replace(" 0", " "): # compare event date to today's date formatted
+        # compare event date to today's date formatted
+        if (event_month, event_day) == date.today().strftime("%b %d").replace(" 0", " "):
             return event_name
 
 
@@ -90,7 +89,8 @@ def HomeTeamWA():
 #     for event in eventInfo.findAll('div', {"class": "row event location-west-ashley"}): # Finding all WA events.
 #         eventDate = (event.find('div', {"class": "month"}).text,
 #                      event.find('div', {"class": "year"}).text)  # Year is actually the day of month.
-#         if eventDate == date.today().strftime("%b  %d").lstrip("0").replace(" 0", " "):  # Format today function to match site date for comparison.
+#         # Format today function to match site date for comparison.
+#         if eventDate == date.today().strftime("%b  %d").lstrip("0").replace(" 0", " "):
 #             HTWAeventName = event.attrs.get("data-name")
 #             return HTWAeventName
 #         else:
@@ -105,7 +105,9 @@ def MusicFarm():
 
     :return: [String] Event name and time (formatted)
     """
-    musicfarm = siteScrape(venues.get("Music Farm"))
+    event_today = []
+    event_week = []
+    musicfarm = siteScrape(venues.get("Music Farm Charleston"))
     dates = musicfarm.xpath('//div[@class="eventDateList"]/div//text()')
     events = musicfarm.xpath('//a[@class="url"]/h2//text()')
     times = musicfarm.xpath('//div[@class="d-block eventsColor eventDoorStartDate"]/span//text()')
@@ -124,6 +126,8 @@ def MusicHall():
 
     :return: [String] Event name
     """
+    event_today = []
+    event_week = []
     musichall = siteScrape(venues.get("Music Hall"))
     edate = musichall.xpath('//time[@class="dates"]')
     event = musichall.xpath('//section[@class="cmh-event-content"]/a/h2//text()')
@@ -139,9 +143,9 @@ def MusicHall():
 MusicHall()
 
 
-# TODO Need to get start time of event
-# TODO Need to get event sub title
 def PourHouse():
+    event_today = []
+    event_week = []
     pourhouse = siteScrape(venues.get("Pour House"))
     dates = pourhouse.xpath('//p[@class="show-day"]//text()')
     # TODO Issue with <br> tags creating multiple events
@@ -162,6 +166,8 @@ PourHouse()
 
 # TODO No events happening at the moment (Aug 2020) So no data to refactor this function with XPATH.
 def RoyalAmerican():
+    event_today = []
+    event_week = []
     pass
 
 
@@ -170,6 +176,8 @@ RoyalAmerican()
 
 # TODO No events happening at the moment (Aug 2020) So no data to refactor this function with XPATH.
 def Sparrow():
+    event_today = []
+    event_week = []
     pass
 
 
@@ -181,6 +189,8 @@ def Theatre99():
 
     :return: [String] Event name
     """
+    event_today = []
+    event_week = []
     theatre99 = siteScrape(venues.get("Theatre 99"))
     date_month = theatre99.xpath('//div[@class="ai1ec-month"]//text()')
     date_day = theatre99.xpath('//div[@class="ai1ec-day"]//text()')
@@ -207,6 +217,8 @@ def TinRoof():
 
     :return: [String] Event name with formatted start time.
     """
+    event_today = []
+    event_week = []
     tinroof = requests.get(venues.get("Tin Roof"))
     tinroof_json = tinroof.json()
     for event in tinroof_json['events']:
@@ -222,6 +234,12 @@ TinRoof()
 
 
 def WindJammer():
+    """
+
+    :return: [String] Event name with formatted time.
+    """
+    event_today = []
+    event_week = []
     windjammer = siteScrape(venues.get("Wind Jammer"))
     date_day = windjammer.xpath('//div[@class="event-arc-day"]//text()')
     date_month = windjammer.xpath('//div[@class="event-arc-month"]//text()')
@@ -236,15 +254,16 @@ def WindJammer():
 WindJammer()
 
 
-# TODO No specific dates for any events right now. Can't create logic for single events.
-# TODO Current functionality returns the last event currently due to above issue. Will not use function right now.
+
 def WoolfeStreet():
+    event_today = []
+    event_week = []
     woolfestreet = siteScrape(venues.get("Woolfe Street"))
     events = woolfestreet.xpath('//div[@class="top"]/h2/a//text()')
     date = woolfestreet.xpath('//div[@class="lefty"]/h5//text()')
 
-    for a, b in zip(events, date):
-        return a + " - " + b
+    for e, d in zip(events, date):
+        return e + " - " + d
 
 
 WoolfeStreet()
