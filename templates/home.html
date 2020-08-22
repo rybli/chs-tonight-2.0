@@ -47,7 +47,19 @@
             {% endif %}
         {% endfor %}
 
-        <h1>This Week</h1>
+        <!--Placeholder for now until I get weekly events created.-->
+        <h1>This Week <br> {{ date_week }}</h1>
+        <hr>
+
+        <!--For each venue, if event happening create an HTML entry-->
+        {% for key, value in results.items() %}
+            {% if value != None %}
+                <div class="venueName">
+                    <b>{{ key }}</b> - {{ value }}
+                    <hr>
+                </div>
+            {% endif %}
+        {% endfor %}
 
     <!--This will be for what is happening this week.-->
         <!--For each venue, if event happening create an HTML entry-->

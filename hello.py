@@ -1,7 +1,9 @@
 from flask import Flask
 from flask import render_template
 import contentscrape
-from datetime import date
+from datetime import datetime, timedelta, date
+from contentscrape import dt, start, end
+
 
 app = Flask(__name__,
             template_folder="templates",
@@ -22,12 +24,17 @@ events = {
     "Woolfe Street": contentscrape.WoolfeStreet()
 }
 
-
+# Get today's date
 date_today = date.today().strftime("%A, %B %#d, %Y")
+# Get list of days of the week
+dates = [dt.strftime("%A, %B %#d, %Y") for dt in contentscrape.daterange(start, end)]
+
 
 @app.route('/', methods=['GET'])
 def hello_world():
-    return render_template('home.html', date_today=date_today, results=events)
+    return render_template('home.html', date_today=date_today,
+                           date_week=dates[0] + " - " + dates[-1],
+                           results=events)
 
 
 @app.route('/about', methods=['GET'])
@@ -42,3 +49,6 @@ def contact():
 
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['TESTING'] = True
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=5000)

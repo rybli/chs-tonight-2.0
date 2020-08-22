@@ -21,6 +21,20 @@ venues = {
 }
 
 
+dt = datetime.strptime(date.today().strftime('%d/%b/%Y'), '%d/%b/%Y')
+start = dt - timedelta(days=dt.weekday())
+end = start + timedelta(days=6)
+
+
+def daterange(date1, date2):
+    """
+
+    :return [List] List of dates from this Monday to Sunday.
+    """
+    for n in range(int((date2 - date1).days)+1):
+        yield date1 + timedelta(n)
+
+
 # Pull initial web page and return for use in site specific functions.
 def siteScrape(url):
     """
@@ -39,6 +53,9 @@ def Gaillard():
 
     :return: [String] Output of a single string for either event name or 'No Events'
     """
+    gaillard_week = [dt.strftime("%b %d").replace(" 0", " ") for dt in daterange(start, end)]
+    event_today = []
+    event_week = []
     # Request site once and store page in variable for local parsing/scraping
     gaillard = siteScrape((venues.get("Gaillard")))
     month = gaillard.xpath('//span[@class="performance-item__date-month"]//text()')
@@ -47,9 +64,14 @@ def Gaillard():
     time = gaillard.xpath('//div[@class="text-accent performance-item__time"]//text()')
 
     for event_month, event_day, event_name, event_time in zip(month, day, event, time):
-        # compare event date to today's date formatted
         if (event_month, event_day) == date.today().strftime("%b %d").replace(" 0", " "):
-            return event_name
+            event_today.append(event_name)
+        if (event_month, event_day) in gaillard_week:
+            event_week.append((event_name))
+    print(event_today, event_week)
+        # compare event date to today's date formatted
+        # if (event_month, event_day) == date.today().strftime("%b %d").replace(" 0", " "):
+        #     return event_name
 
 
 Gaillard()
@@ -74,7 +96,7 @@ def HomeTeamDowntown():
 #             return HTDTeventName
 
 
-# HomeTeamDowntown()
+HomeTeamDowntown()
 
 
 # TODO No events happening at the moment (Aug 2020) So no data to refactor this function with XPATH.
@@ -105,6 +127,7 @@ def MusicFarm():
 
     :return: [String] Event name and time (formatted)
     """
+    musicfarm_week = [dt.strftime("%b %#d") for dt in daterange(start, end)]
     event_today = []
     event_week = []
     musicfarm = siteScrape(venues.get("Music Farm Charleston"))
@@ -113,9 +136,15 @@ def MusicFarm():
     times = musicfarm.xpath('//div[@class="d-block eventsColor eventDoorStartDate"]/span//text()')
 
     for d, e, t in zip(dates, events, times):
-        # Compare event date with today
+        # Getting today event info, and week event info
         if d.strip() == date.today().strftime("%b %m"):
-            return e + ' - ' + t  # Return formatted strings of event name and event times
+            event_today.append(e + ' - ' + t)
+        if d.strip() in musicfarm_week:
+            event_week.append(e + ' - ' + t)
+    print(event_today, event_week)
+        # Compare event date with today
+        # if d.strip() == date.today().strftime("%b %m"):
+        #     return e + ' - ' + t  # Return formatted strings of event name and event times
 
 
 MusicFarm()
@@ -126,6 +155,7 @@ def MusicHall():
 
     :return: [String] Event name
     """
+    musichall_week = [dt.strftime("%a%#m.%#d").upper() for dt in daterange(start, end)]
     event_today = []
     event_week = []
     musichall = siteScrape(venues.get("Music Hall"))
@@ -134,16 +164,23 @@ def MusicHall():
     time = musichall.xpath('//section[@class="cmh-event-content"]/p//text()')
 
     for event_date, event_name, event_time in zip(edate, event, time):
+        # Getting today event info, and week event info
+        if (event_date.text_content()) == date.today().strftime("%a%#m.%#d").upper():
+            event_today.append(event_name)
+        if (event_date.text_content()) in musichall_week:
+            event_week.append(event_name)
+    print(event_today, event_week)
         # Compare scraped date (e.g. SUN8.16) to today's date.
         # Format today to match scraped date. Windows localized with # to get rid of zero padding.
-        if (event_date.text_content()) == date.today().strftime("%a%#m.%#d").upper():
-            return event_name
+        # if (event_date.text_content()) == date.today().strftime("%a%#m.%#d").upper():
+        #     return event_name
 
 
 MusicHall()
 
 
 def PourHouse():
+    pourhouse_week = [dt.strftime("%A, %B %#d, %Y") for dt in daterange(start, end)]
     event_today = []
     event_week = []
     pourhouse = siteScrape(venues.get("Pour House"))
@@ -155,10 +192,16 @@ def PourHouse():
     # TODO Some shows do no have a cover listed
     # cover_cost = pourhouse.xpath('//table[@class="show-details"]//th[text() = "Cover:"]//following-sibling::td')
 
-    for d, e, dt, st in zip(dates, events, door_times, show_times):
-        # Remove ordinal indicators and compare to today's date formatted.
+    for d, e, door_time, st in zip(dates, events, door_times, show_times):
+        # Getting today event info, and week event info
         if re.sub("(?<=[0-9])(?:st|nd|rd|th)", "", d) == date.today().strftime("%A, %B %#d, %Y"):
-            return e.text_content() + ' - ' + 'Doors: ' + dt + ' Show: ' + st
+            event_today.append(e.text_content() + ' - ' + 'Doors: ' + door_time + ' Show: ' + st)
+        if re.sub("(?<=[0-9])(?:st|nd|rd|th)", "", d) in pourhouse_week:
+            event_week.append(e.text_content() + ' - ' + 'Doors: ' + door_time + ' Show: ' + st)
+    print(event_today, event_week)
+        # Remove ordinal indicators and compare to today's date formatted.
+        # if re.sub("(?<=[0-9])(?:st|nd|rd|th)", "", d) == date.today().strftime("%A, %B %#d, %Y"):
+        #     return e.text_content() + ' - ' + 'Doors: ' + door_time + ' Show: ' + st
 
 
 PourHouse()
@@ -189,6 +232,7 @@ def Theatre99():
 
     :return: [String] Event name
     """
+    theatre99_week = [dt.strftime("%b%#d%a") for dt in daterange(start, end)]
     event_today = []
     event_week = []
     theatre99 = siteScrape(venues.get("Theatre 99"))
@@ -205,8 +249,14 @@ def Theatre99():
         dates.append(combined_date)
 
     for d, e, t in zip(dates, event, time):
+        # Getting today event info, and week event info
         if d == date.today().strftime("%b%#d%a"):
-            return e
+            event_today.append(e)
+        if d in theatre99_week:
+            event_week.append(e)
+    print(event_today, event_week)
+        # if d == date.today().strftime("%b%#d%a"):
+        #     return e
 
 
 Theatre99()
@@ -217,17 +267,28 @@ def TinRoof():
 
     :return: [String] Event name with formatted start time.
     """
+    tinroof_week = [dt.strftime('%Y-%m-%d') for dt in daterange(start, end)]
     event_today = []
     event_week = []
     tinroof = requests.get(venues.get("Tin Roof"))
     tinroof_json = tinroof.json()
     for event in tinroof_json['events']:
-        # Compare event time to today. If event today, return event name.
+        # Getting today event info, and week event info
         if datetime.utcfromtimestamp(event['when']['start']['millis']/1000).strftime('%Y-%m-%d') == \
                 date.today().strftime('%Y-%m-%d'):
             # Return event name and formatted start time.
-            return event['content']['summary']['text'] + " - " + \
-                   datetime.utcfromtimestamp(event['when']['start']['millis']/1000).strftime('%#I:%M %p')
+            event_today.append(event['content']['summary']['text'] + " - " + \
+                   datetime.utcfromtimestamp(event['when']['start']['millis']/1000).strftime('%#I:%M %p'))
+        if datetime.utcfromtimestamp(event['when']['start']['millis'] / 1000).strftime('%Y-%m-%d') in tinroof_week:
+            event_week.append(event['content']['summary']['text'] + " - " + \
+                   datetime.utcfromtimestamp(event['when']['start']['millis']/1000).strftime('%#I:%M %p'))
+    print(event_today, event_week)
+        # Compare event time to today. If event today, return event name.
+        # if datetime.utcfromtimestamp(event['when']['start']['millis']/1000).strftime('%Y-%m-%d') == \
+        #         date.today().strftime('%Y-%m-%d'):
+            # Return event name and formatted start time.
+            # return event['content']['summary']['text'] + " - " + \
+            #        datetime.utcfromtimestamp(event['when']['start']['millis']/1000).strftime('%#I:%M %p')
 
 
 TinRoof()
@@ -238,6 +299,7 @@ def WindJammer():
 
     :return: [String] Event name with formatted time.
     """
+    windjammer_week = [dt.strftime('%b %d') for dt in daterange(start, end)]
     event_today = []
     event_week = []
     windjammer = siteScrape(venues.get("Wind Jammer"))
@@ -246,9 +308,15 @@ def WindJammer():
     event = windjammer.xpath('//h2[@class="event-arc-title"]/a//text()')
     time = windjammer.xpath('//p[@class="event-arc-time"]//text()')
     for dm, dd, e, t in zip(date_month, date_day, event, time):
-        # Compare event time to today
+        # Getting today event info, and week event info
         if (dm + ' ' + dd) == date.today().strftime('%b %d'):
-            return e + ' - ' + t
+            event_today.append(e + ' - ' + t)
+        if (dm + ' ' + dd) in windjammer_week:
+            event_week.append(e + ' - ' + t)
+    print(event_today, event_week)
+        # Compare event time to today
+        # if (dm + ' ' + dd) == date.today().strftime('%b %d'):
+        #     return e + ' - ' + t
 
 
 WindJammer()
