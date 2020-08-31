@@ -15,7 +15,7 @@ If you wish to run your own instance of this site remember to install all requir
 ### Flask Setup
 In order to run the flask instance run the following commands:
 
-Linux Environment:
+##### Linux Environment:
 ```
 export FLASK_APP=hello.py
 flask run
@@ -25,7 +25,7 @@ or
 python hello.py
 ```
 
-Windows Environment:
+##### Windows Environment:
 
 ```
 set FLASK_APP=hello.py
