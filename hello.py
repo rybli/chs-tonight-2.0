@@ -1,8 +1,8 @@
 from flask import Flask
 from flask import render_template
 import contentscrape
-from datetime import datetime, timedelta, date
 from contentscrape import dt, start, end
+from datetime import datetime, timedelta, date
 
 
 app = Flask(__name__,
@@ -39,7 +39,7 @@ def hello_world():
 
 @app.route('/about', methods=['GET'])
 def about():
-    return render_template('about.html')
+    return render_template('about.html', venues=contentscrape.venues)
 
 
 @app.route('/contact', methods=['GET'])
@@ -51,4 +51,4 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['TESTING'] = True
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=False, host='0.0.0.0', port=5000)
