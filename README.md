@@ -3,7 +3,7 @@ A remake of the [chs-tonight]('https://github.com/DanHanf/chs-source') website t
 The original site was written in React. This remake is powered by Python and Flask.
 
 This project is more of a learning experience than anything else. There are most likely more elegant ways of gathering
-this information.
+this information. As such, this project's code will be constantly updated as I learn more about the technologies being used.
 
 
 ## Setup
@@ -20,12 +20,21 @@ Linux Environment:
 export FLASK_APP=hello.py
 flask run
 ```
+or
+```
+python hello.py
+```
 
 Windows Environment:
 
 ```
 set FLASK_APP=hello.py
 flask run
+```
+
+or
+```
+python hello.py
 ```
 
 
