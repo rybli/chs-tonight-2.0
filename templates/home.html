@@ -1,77 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="icon" href="static/favicon.ico">
-    <meta charset="UTF-8">
-    <title>CHS Happenings - Home</title>
-    <link rel="stylesheet" href="/static/style.css" type="text/css">
-    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
-</head>
-<body>
-    <div class="transparent">
-        <h1 id="title">Charleston Happenings</h1>
-        <h2 id="subtitle">See what's happening in Charleston tonight!</h2>
+{% extends "base.html" %}
+{% block content %}
+    <h1 id="title">Charleston Happenings</h1>
+    <h2 id="subtitle">See what's happening in Charleston tonight!</h2>
 
-        <hr>
+    <hr>
 
-        <nav>
-            <ul class="horizontal">
-                <li>
-                    <a href="/">home</a>
-                </li>
-                <li>
-                    <a href="about">about</a>
-                </li>
-                <li>
-                    <a href="contact">contact</a>
-                </li>
+    <h1>Tonight <br> {{ date_today }}</h1>
 
+    <hr>
 
-            </ul>
-        </nav>
+    <!--For each venue, if event happening create an HTML entry-->
+    {% for key, value in results.items() %}
+        {% if value != None %}
+            <div class="venueName">
+                <b>{{ key }}</b> - {{ value }}
+                <hr>
+            </div>
+        {% endif %}
+    {% endfor %}
 
-        <hr>
+    <!--Placeholder for now until I get weekly events created.-->
+    <h1>This Week <br> {{ date_week }}</h1>
 
+    <hr>
 
-
-        <h1>Tonight <br> {{ date_today }}</h1>
-        <hr>
-
-        <!--For each venue, if event happening create an HTML entry-->
-        {% for key, value in results.items() %}
-            {% if value != None %}
-                <div class="venueName">
-                    <b>{{ key }}</b> - {{ value }}
-                    <hr>
-                </div>
-            {% endif %}
-        {% endfor %}
-
-        <!--Placeholder for now until I get weekly events created.-->
-        <h1>This Week <br> {{ date_week }}</h1>
-        <hr>
-
-        <!--For each venue, if event happening create an HTML entry-->
-        {% for key, value in results.items() %}
-            {% if value != None %}
-                <div class="venueName">
-                    <b>{{ key }}</b> - {{ value }}
-                    <hr>
-                </div>
-            {% endif %}
-        {% endfor %}
-
-    <!--This will be for what is happening this week.-->
-        <!--For each venue, if event happening create an HTML entry-->
-    <!--    {% for key, value in results.items() %}-->
-    <!--        {% if value != None %}-->
-    <!--            <div class="venueName">-->
-    <!--                <b>{{ key }}</b> - {{ value }}-->
-    <!--                <hr>-->
-    <!--            </div>-->
-    <!--        {% endif %}-->
-    <!--    {% endfor %}-->
-    </div>
-
-</body>
-</html>
+    <!--For each venue, if event happening create an HTML entry-->
+    {% for key, value in results.items() %}
+        {% if value != None %}
+            <div class="venueName">
+                <b>{{ key }}</b> - {{ value }}
+                <hr>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

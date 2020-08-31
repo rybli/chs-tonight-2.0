@@ -1,41 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="icon" href="static/favicon.ico">
-    <meta charset="UTF-8">
-    <title>CHS Happenings - About</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css">
-    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
-</head>
-<body>
+{% extends "base.html" %}
+{% block content %}
+    <h1 id="title">About</h1>
+    <h2 id="subtitle">See what's it's all about.</h2>
 
-    <div class="transparent">
-        <h1 id="title">About</h1>
-        <h2 id="subtitle">See what's it's all about.</h2>
+    <hr>
 
-        <hr>
-
-        <nav>
-            <ul class="horizontal">
-                <li>
-                    <a href="/">home</a>
-                </li>
-                <li>
-                    <a href="about">about</a>
-                </li>
-                <li>
-                    <a href="contact">contact</a>
-                </li>
-
-
-            </ul>
-        </nav>
-
-        <hr>
-
-        <h2>
-            This is a remake of the original <a href="http://chs-tonight.com/">chs-tonight</a> project that seems to no longer be maintained.
-        </h2>
-    </div>
-</body>
-</html>
+    <h2>
+        This is a remake of the original <a href="http://chs-tonight.com/">chs-tonight</a> project that seems to no longer be maintained.
+    </h2>
+{% endblock %}
