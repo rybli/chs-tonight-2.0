@@ -10,25 +10,30 @@
     <hr>
 
     <!--For each venue, if event happening create an HTML entry-->
-    {% for key, value in results.items() %}
-        {% if value != None %}
+    {% for item in results.items() %}
+        {% if item[1][0] %}
             <div class="venueName">
-                <b>{{ key }}</b> - {{ value }}
+                <b>{{ item[0] }}</b>
+                {% for event in item[1][0] %}
+                    <br>{{ event | join('') }}
+                {% endfor %}
                 <hr>
             </div>
         {% endif %}
     {% endfor %}
 
-    <!--Placeholder for now until I get weekly events created.-->
     <h1>This Week <br> {{ date_week }}</h1>
 
     <hr>
 
     <!--For each venue, if event happening create an HTML entry-->
-    {% for key, value in results.items() %}
-        {% if value != None %}
+    {% for item in results.items() %}
+        {% if item[1][1] %}
             <div class="venueName">
-                <b>{{ key }}</b> - {{ value }}
+                <b>{{ item[0] }}</b>
+                {% for event in item[1][1] %}
+                    <br>{{ event | join('') }}
+                {% endfor %}
                 <hr>
             </div>
         {% endif %}

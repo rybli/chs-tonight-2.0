@@ -5,17 +5,17 @@
 
     <hr>
 <!--    Figure out why these styles are taking from style.css-->
-    <h2 style="text-align: center">
+    <h2>
         This is a remake of the original <a href="http://chs-tonight.com/">chs-tonight</a> project that seems to no longer be maintained.
     </h2>
 <!--    Figure out why these styles are taking from style.css-->
-    <h2 style="text-align: center">
+    <h2>
         A current list of venues that are being tracked are listed below:
     </h2>
     {% for venue, link in venues.items() %}
-        <div class="venueName">
+        <div class="venueAbout">
             <a href="{{ link }}">{{ venue }}</a>
-            <hr>
+<!--            <hr>-->
         </div>
     {% endfor %}
 {% endblock %}

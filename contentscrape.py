@@ -4,7 +4,23 @@ from lxml import html
 import re
 
 
-#  List of URLs for venues
+#  List of Venues and URLs for about page
+venuesAbout = {
+    "Gaillard": "https://gaillardcenter.org/buy-tickets",
+    "Home Team Downtown": "https://hometeambbq.com/happenings/",
+    "Home Team West Ashley": "https://hometeambbq.com/happenings/",
+    "Music Farm Charleston": "https://music-farm.com/events/?tribe_bar_rhp_venue=3902",
+    "Music Hall": "https://www.charlestonmusichall.com/shows/",
+    "Pour House": "https://charlestonpourhouse.com/",
+    "Royal American": "https://www.theroyalamerican.com/schedule",
+    "Sparrow": "https://www.facebook.com/pg/thesparrowparkcircle/events/",
+    "Theatre 99": "https://theatre99.com/schedule/action~posterboard/",
+    "Tin Roof": "http://charlestontinroof.com/#schedule",
+    "Wind Jammer": "https://the-windjammer.com/events/",
+    "Woolfe Street": "https://woolfestreetplayhouse.com/shows/"
+}
+
+#  List of URLs for venues scraping
 venues = {
     "Gaillard": "https://gaillardcenter.org/buy-tickets",
     "Home Team Downtown": "https://hometeambbq.com/happenings/",
@@ -64,14 +80,13 @@ def Gaillard():
     time = gaillard.xpath('//div[@class="text-accent performance-item__time"]//text()')
 
     for event_month, event_day, event_name, event_time in zip(month, day, event, time):
-        if (event_month, event_day) == date.today().strftime("%b %d").replace(" 0", " "):
+        if (event_month + ' ' + event_day) == date.today().strftime("%b %d").replace(" 0", " "):
             event_today.append(event_name)
-        if (event_month, event_day) in gaillard_week:
+        if (event_month + ' ' + event_day) in gaillard_week:
             event_week.append((event_name))
-    print(event_today, event_week)
-        # compare event date to today's date formatted
-        # if (event_month, event_day) == date.today().strftime("%b %d").replace(" 0", " "):
-        #     return event_name
+
+    print("Gaillard: ", event_today, event_week)
+    return event_today, event_week
 
 
 Gaillard()
@@ -79,7 +94,9 @@ Gaillard()
 
 # TODO No events happening at the moment (Aug 2020) So no data to refactor this function with XPATH.
 def HomeTeamDowntown():
-    pass
+    event_today = []
+    event_week = []
+    return event_today, event_week
 #     """
 #
 #     :return: [String] Output of a single string for either event name or 'No Events'
@@ -101,7 +118,9 @@ HomeTeamDowntown()
 
 # TODO No events happening at the moment (Aug 2020) So no data to refactor this function with XPATH.
 def HomeTeamWA():
-    pass
+    event_today = []
+    event_week = []
+    return event_today, event_week
 #     """
 #
 #     :return: [String] Output of a single string for either event name or 'No Events'
@@ -141,10 +160,9 @@ def MusicFarm():
             event_today.append(e + ' - ' + t)
         if d.strip() in musicfarm_week:
             event_week.append(e + ' - ' + t)
-    print(event_today, event_week)
-        # Compare event date with today
-        # if d.strip() == date.today().strftime("%b %m"):
-        #     return e + ' - ' + t  # Return formatted strings of event name and event times
+
+    print("Music Farm: ", event_today, event_week)
+    return event_today, event_week
 
 
 MusicFarm()
@@ -169,11 +187,9 @@ def MusicHall():
             event_today.append(event_name)
         if (event_date.text_content()) in musichall_week:
             event_week.append(event_name)
-    print(event_today, event_week)
-        # Compare scraped date (e.g. SUN8.16) to today's date.
-        # Format today to match scraped date. Windows localized with # to get rid of zero padding.
-        # if (event_date.text_content()) == date.today().strftime("%a%#m.%#d").upper():
-        #     return event_name
+
+    print("Music Hall: ", event_today, event_week)
+    return event_today, event_week
 
 
 MusicHall()
@@ -198,10 +214,9 @@ def PourHouse():
             event_today.append(e.text_content() + ' - ' + 'Doors: ' + door_time + ' Show: ' + st)
         if re.sub("(?<=[0-9])(?:st|nd|rd|th)", "", d) in pourhouse_week:
             event_week.append(e.text_content() + ' - ' + 'Doors: ' + door_time + ' Show: ' + st)
-    print(event_today, event_week)
-        # Remove ordinal indicators and compare to today's date formatted.
-        # if re.sub("(?<=[0-9])(?:st|nd|rd|th)", "", d) == date.today().strftime("%A, %B %#d, %Y"):
-        #     return e.text_content() + ' - ' + 'Doors: ' + door_time + ' Show: ' + st
+
+    print("Pour House: ", event_today, event_week)
+    return event_today, event_week
 
 
 PourHouse()
@@ -211,7 +226,7 @@ PourHouse()
 def RoyalAmerican():
     event_today = []
     event_week = []
-    pass
+    return event_today, event_week
 
 
 RoyalAmerican()
@@ -221,7 +236,7 @@ RoyalAmerican()
 def Sparrow():
     event_today = []
     event_week = []
-    pass
+    return event_today, event_week
 
 
 Sparrow()
@@ -254,9 +269,9 @@ def Theatre99():
             event_today.append(e)
         if d in theatre99_week:
             event_week.append(e)
-    print(event_today, event_week)
-        # if d == date.today().strftime("%b%#d%a"):
-        #     return e
+
+    print("Theatre 99: ", event_today, event_week)
+    return event_today, event_week
 
 
 Theatre99()
@@ -282,13 +297,9 @@ def TinRoof():
         if datetime.utcfromtimestamp(event['when']['start']['millis'] / 1000).strftime('%Y-%m-%d') in tinroof_week:
             event_week.append(event['content']['summary']['text'] + " - " + \
                    datetime.utcfromtimestamp(event['when']['start']['millis']/1000).strftime('%#I:%M %p'))
-    print(event_today, event_week)
-        # Compare event time to today. If event today, return event name.
-        # if datetime.utcfromtimestamp(event['when']['start']['millis']/1000).strftime('%Y-%m-%d') == \
-        #         date.today().strftime('%Y-%m-%d'):
-            # Return event name and formatted start time.
-            # return event['content']['summary']['text'] + " - " + \
-            #        datetime.utcfromtimestamp(event['when']['start']['millis']/1000).strftime('%#I:%M %p')
+
+    print("Tin Roof: ", event_today, event_week)
+    return event_today, event_week
 
 
 TinRoof()
@@ -313,25 +324,30 @@ def WindJammer():
             event_today.append(e + ' - ' + t)
         if (dm + ' ' + dd) in windjammer_week:
             event_week.append(e + ' - ' + t)
-    print(event_today, event_week)
-        # Compare event time to today
-        # if (dm + ' ' + dd) == date.today().strftime('%b %d'):
-        #     return e + ' - ' + t
+
+    print("Wind Jammer: ", event_today, event_week)
+    return event_today, event_week
 
 
 WindJammer()
 
 
-
 def WoolfeStreet():
+    woolfestreet_week = [dt.strftime('%B %#d, %Y') for dt in daterange(start, end)]
     event_today = []
     event_week = []
     woolfestreet = siteScrape(venues.get("Woolfe Street"))
     events = woolfestreet.xpath('//div[@class="top"]/h2/a//text()')
-    date = woolfestreet.xpath('//div[@class="lefty"]/h5//text()')
+    dates = woolfestreet.xpath('//div[@class="lefty"]/h5//text()')
 
-    for e, d in zip(events, date):
-        return e + " - " + d
+    for e, d in zip(events, dates):
+        if re.sub("(?<=[0-9])(?:st|nd|rd|th)", "", d) == date.today().strftime("%B %#d, %Y"):
+            event_today.append(e)
+        if re.sub("(?<=[0-9])(?:st|nd|rd|th)", "", d) == woolfestreet_week:
+            event_week.append(e)
+
+    print("Woolfe Street: ", event_today, event_week)
+    return event_today, event_week
 
 
 WoolfeStreet()
