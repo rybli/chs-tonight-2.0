@@ -1,3 +1,6 @@
+![Image of Yaktocat](https://github.com/rybli/chs-tonight-2.0/blob/master/Capture.png)
+
+
 # chs-tonight-2.0
 A remake of the [chs-tonight]('https://github.com/DanHanf/chs-source') website that seems to no longer be maintained.
 The original site was written in React. This remake is powered by Python and Flask.
