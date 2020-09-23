@@ -4,25 +4,4 @@ Need to properly comment functions to keep code readable to others.
 
 Create page for venues being tracked.
 
-This Week Section
-    List all events that are happening within the span of Monday - Sunday
-
-Refactor each function to return a list of events.
-    Today Events = []
-    Week Events = []
-
 Get HTTPS working
-
-Complete:
-    Contact Page (Feb 10, 2020)
-    About Page (Feb 10, 2020)
-    Rewrote Gaillard (Aug 1, 2020)
-    Rewrote Music Hall (Aug 8, 2020)
-    Theatre 99 (Aug 8, 2020)
-    Tin Roof (Aug 9, 2020)
-    Wind Jammer (Aug 9, 2020)
-    Initial Woolfe Street functionality (Aug 9, 2020)
-    Pour House (Aug 10, 2020)
-    Created Dynamic HTML to only show venues with events (Aug 10, 2020)
-
-

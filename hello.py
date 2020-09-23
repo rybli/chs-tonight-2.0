@@ -63,17 +63,17 @@ dates = [dt.strftime("%A, %B %#d, %Y") for dt in contentscrape.daterange(start, 
 def hello_world():
     return render_template('home.html', date_today=date_today,
                            date_week=dates[0] + " - " + dates[-1],
-                           results=events)
+                           results=events, page='Home')
 
 
 @app.route('/about', methods=['GET'])
 def about():
-    return render_template('about.html', venues=contentscrape.venuesAbout)
+    return render_template('about.html', venues=contentscrape.venuesAbout, page='About')
 
 
 @app.route('/contact', methods=['GET'])
 def contact():
-    return render_template('contact.html')
+    return render_template('contact.html', page='Contact')
 
 
 app.config['TEMPLATES_AUTO_RELOAD'] = True
