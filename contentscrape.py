@@ -201,7 +201,6 @@ def PourHouse():
     event_week = []
     pourhouse = siteScrape(venues.get("Pour House"))
     dates = pourhouse.xpath('//p[@class="show-day"]//text()')
-    # TODO Issue with <br> tags creating multiple events
     events = pourhouse.xpath('//header[@class="show-header"]/h3')
     door_times = pourhouse.xpath('//table[@class="show-details"]//th[text() = "Doors:"]//following-sibling::td//text()')
     show_times = pourhouse.xpath('//table[@class="show-details"]//th[text() = "Show:"]//following-sibling::td//text()')
