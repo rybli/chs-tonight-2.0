@@ -1,4 +1,4 @@
-![Image of Yaktocat](https://github.com/rybli/chs-tonight-2.0/blob/master/Capture.png)
+![Preview of Site](https://github.com/rybli/chs-tonight-2.0/blob/master/Capture.png)
 
 
 # chs-tonight-2.0
