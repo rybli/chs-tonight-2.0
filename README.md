@@ -2,7 +2,7 @@
 
 
 # chs-tonight-2.0
-A remake of the [chs-tonight]('https://github.com/DanHanf/chs-source') website that seems to no longer be maintained.
+A remake of the [chs-tonight](https://github.com/DanHanf/chs-source) website that seems to no longer be maintained.
 The original site was written in React. This remake is powered by Python and Flask.
 
 This project is more of a learning experience than anything else. There are most likely more elegant ways of gathering
