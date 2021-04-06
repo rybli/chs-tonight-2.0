@@ -3,11 +3,6 @@ from flask import render_template
 import contentscrape
 from contentscrape import dt, start, end
 from datetime import datetime, timedelta, date
-# Scheduling libraries
-# import time
-# import atexit
-# from apscheduler.schedulers.background import BackgroundScheduler
-
 
 app = Flask(__name__,
             template_folder="templates",
@@ -27,30 +22,6 @@ events = {
         "Wind Jammer": contentscrape.WindJammer(),
         "Woolfe Street": contentscrape.WoolfeStreet()
     }
-
-
-# def create_events():
-#     events = {
-#         "Gaillard": contentscrape.Gaillard(),
-#         "Home Team Downtown": contentscrape.HomeTeamDowntown(),
-#         "Home Team West Ashley": contentscrape.HomeTeamWA(),
-#         "Music Farm Charleston": contentscrape.MusicFarm(),
-#         "Music Hall": contentscrape.MusicHall(),
-#         "Pour House": contentscrape.PourHouse(),
-#         "Royal American": contentscrape.RoyalAmerican(),
-#         "Sparrow": contentscrape.Sparrow(),
-#         "Theatre 99": contentscrape.Theatre99(),
-#         "Tin Roof": contentscrape.TinRoof(),
-#         "Wind Jammer": contentscrape.WindJammer(),
-#         "Woolfe Street": contentscrape.WoolfeStreet()
-#     }
-#     return events
-#
-#
-# scheduler = BackgroundScheduler()
-# scheduler.add_job(func=create_events, trigger='interval', seconds=30)
-# scheduler.start()
-
 
 # Get today's date
 date_today = date.today().strftime("%A, %B %#d, %Y")
